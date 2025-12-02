@@ -8,8 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "server": "node --loader tsx server/index.ts",
-    "server:dev": "nodemon --exec node --loader tsx server/index.ts",
+    "server": "tsx server/index.ts",
+    "server:dev": "nodemon --exec tsx server/index.ts",
     "postinstall": "prisma generate"
   },
   "dependencies": {
