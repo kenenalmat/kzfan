@@ -1,0 +1,26 @@
+services:
+  # Web Service - Backend + Frontend
+  - type: web
+    name: kzfan-app
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build && npx prisma migrate deploy
+    startCommand: npm run server
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: kzfan-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+    healthCheckPath: /api/health
+
+databases:
+  - name: kzfan-db
+    plan: free
+    databaseName: kzfan
+    user: kzfan
