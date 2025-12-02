@@ -126,7 +126,11 @@ app.put('/api/events/:id', authenticateToken, async (req, res) => {
 
 // Serve React app for all other routes in production
 if (process.env.NODE_ENV === 'production') {
-    app.get('*', (req, res) => {
+    app.use((req, res, next) => {
+        // Skip if it's an API route
+        if (req.path.startsWith('/api/')) {
+            return next();
+        }
         res.sendFile(path.join(__dirname, '../dist/index.html'));
     });
 }
